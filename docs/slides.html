@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Spatio-Temporal Data Science for Sustainable Mobility</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lucas van der Meer" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="utils.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Spatio-Temporal Data Science for Sustainable Mobility
+## Selected Topics in Geoinformatics
+### Lucas van der Meer
+### University of Salzburg - Department of Geoinformatics
+### 04.11.2019
+
+---
+
+
+
+
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;img src="figures/github.png" width="20%" /&gt;
+
+Slides of this presentation at GitHub: [github.com/luukvdmeer/stig19](https://github.com/luukvdmeer/stig19)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+# "Data science is concerned with finding answers to questions on the basis of available data"
+
+### E. Pebesma &amp; R. Bivand, 2019. [Spatial Data Science](https://keen-swartz-3146c4.netlify.com/)
+
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;img src="figures/spacetimecube.png" width="70%" /&gt;
+
+Image credit: [Esri](https://pro.arcgis.com/en/pro-app/tool-reference/space-time-pattern-mining/create-space-time-cube.htm)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+# "Creating sustainable transportation solutions is one of the greatest challenges facing cities today."
+
+### [World Wide Fund For Nature](https://wwf.panda.org/our_work/projects/one_planet_cities/sustainable_mobility/)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Environment
+
+"Around one-quarter of global CO2 emissions come from the transportation of people and goods" - [World Wide Fund For Nature, 2018](https://wwf.panda.org/our_work/projects/one_planet_cities/sustainable_mobility/)
+
+"9 out of 10 people worldwide breathe polluted air" - [World Health Organization. 2018](https://www.who.int/news-room/detail/02-05-2018-9-out-of-10-people-worldwide-breathe-polluted-air-but-more-countries-are-taking-action)
+
+"Air pollution causes 800,000 extra deaths a year in Europe and 8.8 million worldwide" - [European Society of Cardioligy, 2019](https://www.escardio.org/The-ESC/Press-Office/Press-releases/Air-pollution-causes-800-000-extra-deaths-a-year-in-Europe-and-8-8-million-worldwide)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Congestion
+
+&lt;img src="figures/congestion.jpeg" width="80%" /&gt;
+
+Image credit: [ABC](https://twitter.com/darrenrovell/status/801277592980652032)
+
+Interested? Read [The Fundamental Law of Road Congestion](https://www.nber.org/papers/w15376)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Space requirements
+
+&lt;img src="figures/cars.jpeg" width="70%" /&gt;
+
+Image credit: [CycleToWorkDay](https://twitter.com/cycletoworkday/status/806826291290836992)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Space requirements
+
+&lt;img src="figures/nocars.jpeg" width="70%" /&gt;
+
+Image credit: [CycleToWorkDay](https://twitter.com/cycletoworkday/status/806826291290836992)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Space requirements
+
+&lt;img src="figures/bus.jpeg" width="70%" /&gt;
+
+Image credit: [CycleToWorkDay](https://twitter.com/cycletoworkday/status/806826291290836992)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Space requirements
+
+&lt;img src="figures/bikes.jpeg" width="70%" /&gt;
+
+Image credit: [CycleToWorkDay](https://twitter.com/cycletoworkday/status/806826291290836992)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Safety
+
+&lt;img src="figures/safety.jpeg" width="80%" /&gt;
+
+Image credit: [SWOV](https://www.swov.nl/)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Safety
+
+&lt;img src="figures/unfall.jpeg" width="80%" /&gt;
+
+Image credit: [Kurier, 06.08.2019](https://www.pressreader.com/austria/kurier-3402/20190806)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Safety
+
+&lt;center&gt;&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Hey &lt;a href="https://twitter.com/KURIERat?ref_src=twsrc%5Etfw"&gt;@KURIERat&lt;/a&gt;, I fixed that for you &lt;a href="https://t.co/mq9NY4Zjh1"&gt;pic.twitter.com/mq9NY4Zjh1&lt;/a&gt;&lt;/p&gt;&amp;mdash; Helge Fahrnberger (@Helge) &lt;a href="https://twitter.com/Helge/status/1158765321689411585?ref_src=twsrc%5Etfw"&gt;August 6, 2019&lt;/a&gt;&lt;/blockquote&gt;&lt;/center&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+# "Sustainable urban mobility requires a mind shift: where transport in private cars and trucking give way to different modes of transport."
+
+### [World Wide Fund For Nature](https://wwf.panda.org/our_work/projects/one_planet_cities/sustainable_mobility/)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;img src="figures/copenhagen.jpeg" width="60%" /&gt;
+
+Image credit: [Erik Griswold](https://twitter.com/erik_griswold/status/1165482859223629824)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;img src="figures/design.png" width="45%" /&gt;
+
+Image credit: [Karl Jilg](https://twitter.com/fietsprofessor/status/1182628284326174720)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;img src="figures/trafficlight.jpeg" width="80%" /&gt;
+
+Image credit: [Taras Grescoe](https://twitter.com/grescoe/status/1060206830071279617)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;center&gt;&lt;blockquote class="twitter-tweet" data-conversation="none"&gt;&lt;p lang="en" dir="ltr"&gt;It exists in Delft. The only* traffic light purposely built to break up an endless stream of cyclists and allow a random car to enter a neighbourhood. (push button not included) &lt;br&gt;&lt;br&gt;*) to my knowledge &lt;a href="https://t.co/hdr8yv8Wdx"&gt;pic.twitter.com/hdr8yv8Wdx&lt;/a&gt;&lt;/p&gt;&amp;mdash; Lennart Nout (@lennartnout) &lt;a href="https://twitter.com/lennartnout/status/1060533505606799360?ref_src=twsrc%5Etfw"&gt;November 8, 2018&lt;/a&gt;&lt;/blockquote&gt;&lt;/center&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;img src="figures/vienna18.jpeg" width="70%" /&gt;
+
+Image credit: [Birgit Hebein](https://twitter.com/BirgitHebein/status/1184804850674163712)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;img src="figures/vienna19.jpeg" width="70%" /&gt;
+
+Image credit: [Birgit Hebein](https://twitter.com/BirgitHebein/status/1184804850674163712)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;center&gt;&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;”After 100 years, San Francisco is calling for an end to its disastrous pilot project for dockless personal vehicles, colloquially known as cars.” &lt;a href="https://t.co/L45YMaEDlH"&gt;https://t.co/L45YMaEDlH&lt;/a&gt;&lt;/p&gt;&amp;mdash; Alexandra Sweet (@ASweetPlanner) &lt;a href="https://twitter.com/ASweetPlanner/status/1187728624733941760?ref_src=twsrc%5Etfw"&gt;October 25, 2019&lt;/a&gt;&lt;/blockquote&gt;&lt;/center&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: inverse, center, middle
+
+# Spatio-Temporal Forecasts for Bike Availability in Dockless Bike Sharing Systems
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# What is dockless bike sharing?
+
+.center[
+.pull-left[
+### Station based systems
+&lt;img src="figures/station.png" width="70%" /&gt;
+]
+
+.pull-right[
+### Dockless systems
+&lt;img src="figures/dockless.png" width="70%" /&gt;
+]
+]
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# What do we need to make it a success?
+
+.center[
+.pull-left[
+### Good bike infrastructure
+&lt;img src="figures/infrastructure.png" width="70%" /&gt;
+]
+
+.pull-right[
+### A reliable system
+&lt;img src="figures/reliable.png" width="70%" /&gt;
+]
+]
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# What does a reliable system mean?
+
+.center[
+.pull-left[
+### Station based systems
+&lt;img src="figures/station.png" width="70%" /&gt;
+]
+
+.pull-right[
+### Dockless systems
+&lt;img src="figures/dockless.png" width="70%" /&gt;
+]
+]
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# How do forecasts increase reliability?
+
+.center[
+.pull-left[
+### User perspective
+&lt;img src="figures/users.png" width="70%" /&gt;
+]
+
+.pull-right[
+### Operator perspective
+&lt;img src="figures/operators.png" width="70%" /&gt;
+]
+]
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# What to forecast?
+
+.center[
+.pull-left[
+### Station based systems
+&lt;img src="figures/station.png" width="70%" /&gt;
+]
+
+.pull-right[
+### Dockless systems
+&lt;img src="figures/dockless.png" width="70%" /&gt;
+]
+]
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Grid based?
+
+&lt;img src="figures/gridbased.png" width="50%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Distance based
+
+&lt;img src="figures/distancebased.png" width="50%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Challenges
+
+.center[
+.pull-left[
+### Patterns over space
+&lt;img src="figures/space.png" width="70%" /&gt;
+]
+
+.pull-right[
+### Patterns over time
+&lt;img src="figures/time.png" width="70%" /&gt;
+]
+]
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+# The time domain
+
+&lt;img src="figures/time.png" width="40%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# A time series
+
+&lt;img src="figures/series.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Forecasting
+
+&lt;img src="figures/forecast.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+# Temporal autocorrelation!
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Autoregressive models of order p: AR(p)
+
+An autoregressive model of order p is based on the assumption that the current value of a time series is a linear combination of p previous values.
+
+`$$y_{t}=\phi_{1}y_{t-1}+\phi_{2}y_{t-2}+...+\phi_{p}y_{t-p}+\epsilon_{t}$$`
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Moving average models of order q: MA(q)
+
+A moving average model of order q is based on the assumption that the current value of a time series is a linear combination of q previous errors.
+
+`$$y_{t}=\epsilon_{t}+\theta_{1}\epsilon_{t-1}+\theta_{2}\epsilon_{t-2}+...+\theta_{q}\epsilon_{t-q}$$`
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Together: an ARMA(p,q) model
+
+AR(p) and MA(q) models can be combined into an autoregressive moving average model of order (p, q). That is, in such a model, the current value of a time series is assuned to be a linear combination of both p previous values and q previous errors.
+
+`$$y_{t}=\phi_{1}y_{t-1}+...+\phi_{p}y_{t-p}+\theta_{1}\epsilon_{t-1}+...+\theta_{q}\epsilon_{t-q}+\epsilon_{t}$$`
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# On top of that: differencing
+
+The first order difference (d = 1) of a time series is the series of changes from one time period to the next.
+
+`$$\nabla y_{t} = y_{t} - y_{t-1}$$`
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# All together: ARIMA(p,d,q)
+
+Auto Regressive Integrated Moving Average Model
+
+`$$\nabla^{d}y_{t}=\phi_{1}\nabla^{d}y_{t-1}+...+\phi_{p}\nabla^{d}y_{t-p}+\theta_{1}\epsilon_{t-1}+...+\theta_{q}\epsilon_{t-q}+\epsilon_{t}$$`
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# But what with seasonality?
+
+&lt;img src="figures/series.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Decomposition
+
+&lt;img src="figures/stlplot_model2.png" width="90%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Challenges
+
+`$$\nabla^{d}y_{t}=\phi_{1}\nabla^{d}y_{t-1}+...+\phi_{p}\nabla^{d}y_{t-p}+\theta_{1}\epsilon_{t-1}+...+\theta_{q}\epsilon_{t-q}+\epsilon_{t}$$`
+
+.center[
+.col-one[
+### Accurate
+&lt;img src="figures/accurate.png" width="70%" /&gt;
+]
+
+.col-two[
+### Automated
+&lt;img src="figures/automated.png" width="70%" /&gt;
+]
+
+.col-three[
+### Fast
+&lt;img src="figures/fast.png" width="70%" /&gt;
+]
+]
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+# The space domain
+
+&lt;img src="figures/space.png" width="40%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+# Spatial autocorrelation!
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Time series over space
+
+&lt;img src="figures/spatial.png" width="50%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Spatial clusters
+
+&lt;img src="figures/clusters.png" width="50%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# One 'model point' per spatial cluster
+
+&lt;img src="figures/mpoints.png" width="50%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Hierarchical clustering
+
+&lt;img src="figures/dendrogram.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Hierarchical clustering of time series
+
+&lt;img src="figures/tsclustering.png" width="40%" /&gt;
+
+Image credit: [Xiaozhe Wang](https://www.semanticscholar.org/paper/1-Characteristic-based-Clustering-for-Time-Series/0a5e8d1390f3ceb851f4a37a7ec8edb95e05f698/figure/8)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Feature dissimilarity matrix
+
+&lt;img src="figures/euclidean.png" width="100%" /&gt;
+
+Image credit: [Vinícius Mourão Alves de Souza](https://www.researchgate.net/figure/The-Euclidean-distance-between-two-time-series-can-be-visualized-as-the-square-root-of_fig14_254861501)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Spatial dissimilarity matrix
+
+&lt;img src="figures/spatial.png" width="50%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Methodology overview
+
+&lt;img src="figures/workflow.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Case study
+
+&lt;img src="figures/area.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Time series for clustering
+
+&lt;img src="figures/grid.png" width="60%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Clusters
+
+&lt;img src="figures/clusterssf.png" width="60%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Model points
+
+&lt;img src="figures/modelpointssf.png" width="60%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Cluster patterns
+
+&lt;img src="figures/patterns.png" width="90%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Time series
+
+&lt;img src="figures/timeseriessf.png" width="90%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Forecast examples
+
+&lt;img src="figures/forecasts.png" width="90%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center, middle
+
+&lt;img src="figures/github.png" width="20%" /&gt;
+
+All code on GitHub: [github.com/luukvdmeer/dockless](https://github.com/luukvdmeer/dockless)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Interested?
+
+## Thesis available on [ResearchGate](https://www.researchgate.net/publication/336922318_Spatio-Temporal_Forecasts_for_Bike_Availability_in_Dockless_Bike_Sharing_Systems)
+## Excellent (free!) book on time series forecasting: [Forecasting, Principles &amp; Practice](https://otexts.com/fpp2/) by Rob Hyndman
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: inverse, center, middle
+
+# Vehicle Routing Problems
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Optimize bus routes to events
+
+&lt;img src="figures/vrp.png" width="60%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Optimize bus routes to events
+
+&lt;img src="figures/vrp.png" width="60%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Traveling Salesman Problem
+
+&lt;img src="figures/tsp.png" width="60%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# 'Greedy' solution
+
+&lt;img src="figures/tsp2.png" width="60%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# But this one is better...
+
+&lt;img src="figures/tsp3.png" width="60%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Total number of solutions with 3 cities
+
+`$$3\times2\times1=3!=6$$`
+
+# Total number of solutions with 100 cities
+
+`$$100\times99\times98\times...\times1=100!=...$$`
+
+# Therefore: use 'heuristics'
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# An example
+
+&lt;img src="figures/santa1.png" width="100%" /&gt;
+
+Example borrowed from [knowtex](http://www.knowtex.com/nav/vehicle-routing-and-heuristics-in-operations-research_41357)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Initial solution
+
+&lt;img src="figures/santa2.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Local search
+
+&lt;img src="figures/santa3.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Better solution
+
+&lt;img src="figures/santa4.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Local search
+
+&lt;img src="figures/santa5.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Local and global minima
+
+&lt;img src="figures/minima.png" width="80%" /&gt;
+
+Image credit: [Yeon Byoungil](https://www.researchgate.net/figure/Example-of-local-and-global-solutions-in-an-optimization-problem_fig3_322270023)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Local and global minima
+
+&lt;img src="figures/minima2.png" width="60%" /&gt;
+
+Image credit: [Ryan Marks](https://www.researchgate.net/figure/A-3D-surface-plot-demonstrating-local-and-global-minima_fig10_305881922)
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: center
+
+# Including more constraints
+
+&lt;img src="figures/santa6.png" width="100%" /&gt;
+
+---
+background-image: url('figures/zgis.png')
+background-size: 80px
+background-position: 50% 95%
+class: inverse, center, middle
+
+# Thank you!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
