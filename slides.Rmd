@@ -417,6 +417,15 @@ knitr::include_graphics("figures/dockless.png")
 ]
 ]
 
+???
+
+- Bikesharing important to normalize image of biking as transport mode
+- No need to invest in own bike / bring own bike everywhere
+- Very important as first/last mile connection
+- Explain station based system functionality
+- Downsides of station based systems -> no station at end point
+- Explain dockless systems
+
 ---
 background-image: url('figures/zgis.png')
 background-size: 80px
@@ -440,6 +449,10 @@ knitr::include_graphics("figures/reliable.png")
 ```
 ]
 ]
+
+???
+
+- Putting bikes only is not enough
 
 ---
 background-image: url('figures/zgis.png')
@@ -465,6 +478,11 @@ knitr::include_graphics("figures/dockless.png")
 ]
 ]
 
+???
+
+- Station based: available bike at start station, enough space at end station
+- Dockless: available bike somewhere near starting point
+
 ---
 background-image: url('figures/zgis.png')
 background-size: 80px
@@ -488,6 +506,11 @@ knitr::include_graphics("figures/operators.png")
 ```
 ]
 ]
+
+???
+
+- User can plan their trip effectively, beforehand
+- Operator can anticipate on imbalances in supply and demand
 
 ---
 background-image: url('figures/zgis.png')
@@ -513,6 +536,11 @@ knitr::include_graphics("figures/dockless.png")
 ]
 ]
 
+???
+
+- Station based: forecasts only needed at fixed locations in space
+- Dockless: forecasts possibly needed at any location in space
+
 ---
 background-image: url('figures/zgis.png')
 background-size: 80px
@@ -524,6 +552,15 @@ class: center
 ```{r, echo = FALSE, cache = TRUE, out.width='50%'}
 knitr::include_graphics("figures/gridbased.png")
 ```
+
+???
+
+- Treat each grid cell as station
+- Downsides:
+- Forecasting counts limits choice of forecasting models
+- Forecast depends on resolution of grid
+- How to choose this resolution
+- Forecast does not guarantee to forecast closest bikes
 
 ---
 background-image: url('figures/zgis.png')
@@ -561,6 +598,12 @@ knitr::include_graphics("figures/time.png")
 ]
 ]
 
+???
+
+- Different supply of bikes at different locations in space
+- Different supply of bikes at different moments in time > peak hours
+- Time patterns vary over space. Spatio-temporal!
+
 ---
 background-image: url('figures/zgis.png')
 background-size: 80px
@@ -585,6 +628,10 @@ class: center
 knitr::include_graphics("figures/series.png")
 ```
 
+???
+
+- Observations for regulary spaced moments in time
+
 ---
 background-image: url('figures/zgis.png')
 background-size: 80px
@@ -597,6 +644,13 @@ class: center
 knitr::include_graphics("figures/forecast.png")
 ```
 
+???
+
+- We want to know how this time series will continue in the future
+- From a statistical perspective we say:
+- We forecast the range of possible futures, called the forecast distribution
+- Then, we take the mean of that distribution to be our forecast
+
 ---
 background-image: url('figures/zgis.png')
 background-size: 80px
@@ -604,6 +658,19 @@ background-position: 50% 95%
 class: center, middle
 
 # Temporal autocorrelation!
+
+???
+
+- Forecasting is all about temporal autocorrelation
+- Temporal autocorrelation means that the value at one point in time depens on the values of near points in time
+- Statisticians dont like this. Their models rely on assumption of independent observations
+- But actually, autocorrelation can be very useful
+- Because if the current time point depends on the time point before, the future time point depends on the current time point!
+- That is, we can use past data to forecast the future!
+- What we need for that is an understanding of the dependency structure in a time series
+- In practice that means that we are going to formulate a model to describe this structure
+- Remember: with real world data, models are never true, but a simplification of the truth
+- We call this: fitting a model to the time series
 
 ---
 background-image: url('figures/zgis.png')
@@ -629,6 +696,16 @@ A moving average model of order q is based on the assumption that the current va
 
 $$y_{t}=\epsilon_{t}+\theta_{1}\epsilon_{t-1}+\theta_{2}\epsilon_{t-2}+...+\theta_{q}\epsilon_{t-q}$$
 
+???
+
+- This is less intuitive
+- Errors are random
+- In a AR model, the explanatory variables all depend on each other
+- That is, the autocorrelation function slowly decays
+- Errors dont depend on each other, they are random
+- Therefore, the autocorrelation function drops fast after q lags
+- This is better to model time series with shocks
+
 ---
 background-image: url('figures/zgis.png')
 background-size: 80px
@@ -652,6 +729,17 @@ class: center
 The first order difference (d = 1) of a time series is the series of changes from one time period to the next.
 
 $$\nabla y_{t} = y_{t} - y_{t-1}$$
+
+???
+
+- It is important for time series to be stationary
+- Stationary means the statistical properties of the data stay the same over time
+- I.e. constant mean and variance
+- Because if the statistical properties where the same in the past, we can easily forecast that they will stay the same in the future
+- If the properties always changes in the past, how do we forecast the future?
+- It turns out that replacing the raw data values by the difference of each value with the value before,
+can stationarize the time series
+- The new time series is also called the integrated version of the original
 
 ---
 background-image: url('figures/zgis.png')
